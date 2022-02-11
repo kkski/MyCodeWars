@@ -1,47 +1,33 @@
 import java.util.*;
 import java.util.stream.Collectors;
-
+import java.util.stream.Stream;
+// https://www.codewars.com/kata/585d7d5adb20cf33cb000235/train/java
 public class findUnique {
     public static double findUniq(double arr[]) {
-
-        ArrayList<Double> list = new ArrayList<Double>();
-        for (double d : arr) {
-            list.add(d);
-        }
-        ;
-        ArrayList<Double> reps = new ArrayList<Double>();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int k = i + 1; k < list.size(); k++) {
-                double a = list.get(i);
-                double b = list.get(k);
+        arr = Arrays.stream(arr).sorted().toArray();
+        double[] source2 = Arrays.stream(arr).distinct().toArray();
+        List<Double> source = new ArrayList<>();
+        for (double d : source2) {source.add(d);}
+        List<Double> reps = new ArrayList<Double>();
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int k = i + 1; k < arr.length; k++) {
+                double a = arr[i];
+                double b = arr[k];
                 if (a == b) {
-                    reps.add(list.get(i));
+                    reps.add(arr[i]);
                 }
             }
         }
+        reps = reps.stream().distinct().collect(Collectors.toList());
 
-        List<Double> source = list.stream().distinct().collect(Collectors.toList());
+        source.removeAll(reps);
 
-
-        double result = 0.0;
-
-        for (int i = 0; i < source.size(); i++) {
-            double a = source.get(i);
-            for (int k = 0; k < reps.size(); k++) {
-                double b = reps.get(k);
-                if (a != b) {
-                    result = a;
-                }
-            }
-        }
-        return result;
-
-
+        return source.get(0);
     }
 
     public static void main(String[] args) {
         System.out.println(findUniq(new double[]{1, 1, 1, 2, 1, 1})); // => 2
         System.out.println(findUniq(new double[]{0, 0, 0.55, 0, 0})); // => 2
-        System.out.println(findUniq(new double[]{0, 1, 0}));
+        System.out.println(findUniq(new double[]{1, 1, 1, 2, 3, 3, 3, 3, 3, 3, 3, 1, 1}));
     }
 }
