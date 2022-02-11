@@ -8,7 +8,7 @@ public class isogram {
     public static void main(String[] args) {
         System.out.println(isIsogram("thumbscrewjapingly"));
 
-        System.out.println(fixedTests();
+      //  System.out.println(fixedTests());
     }
 
     public static boolean isIsogram(String str) {
